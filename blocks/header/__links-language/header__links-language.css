@@ -1,0 +1,10 @@
+.header__links-language {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 375px) {
+    
+}

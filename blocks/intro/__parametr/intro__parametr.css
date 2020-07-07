@@ -1,0 +1,14 @@
+.intro__parametr {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 20px;
+    color: white;
+    margin: 0;
+}
+@media screen and (max-width: 375px) {
+    .intro__parametr {
+        font-size: 12px;
+        line-height: 19px;
+    }
+}

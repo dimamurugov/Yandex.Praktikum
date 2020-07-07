@@ -1,0 +1,13 @@
+.page__intro {
+    margin: 69px auto 0 auto;
+}
+@media screen and (max-width: 1280px) {
+    .page__intro {
+        margin-top: 77px;
+    }
+}
+@media screen and (max-width: 375px) {
+    .page__intro {
+        margin: 56px auto 0 auto;
+    }
+}

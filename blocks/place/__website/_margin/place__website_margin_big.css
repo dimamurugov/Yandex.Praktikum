@@ -1,0 +1,8 @@
+.place__website_margin_big {
+    margin-top: 75px;
+}
+@media screen and (max-width: 768px) {
+    .place__website_margin_big {
+        margin-top: 45px;
+    }
+}

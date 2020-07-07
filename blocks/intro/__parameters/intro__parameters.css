@@ -1,0 +1,14 @@
+.intro__parameters {
+    list-style-type: none; 
+    margin: 15px 0 0 0;
+}
+@media screen and (max-width: 768px) {
+    .intro__parameters {
+        margin-top: 24px;
+    }
+}
+@media screen and (max-width: 375px) {
+    .intro__parameters {
+        margin-top: 12px;
+    }
+}

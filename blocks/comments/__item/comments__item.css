@@ -1,0 +1,16 @@
+.comments__item {
+    max-width: 382px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 19px;
+}
+
+.comments__item:last-child {
+    margin-right: 0;
+}
+@media screen and (max-width: 768px) {
+    .comments__item {
+        align-items: center;
+        margin-top: 53px;
+    }
+}

@@ -1,0 +1,20 @@
+.video {
+    font-family: 'Inter', Arial, sans-serif;
+    max-width: 1232px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #2A2C2F;
+    box-sizing: border-box;
+    padding: 0 24px;
+}
+@media screen and (max-width: 1024px) {
+    .video {
+        padding: 0 48px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .video {
+        padding: 0 24px;
+    }
+}

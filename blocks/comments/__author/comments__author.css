@@ -1,0 +1,11 @@
+.comments__author {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+    margin: 12px 0 0 0;
+}
+@media screen and (max-width: 768px) {
+   
+}

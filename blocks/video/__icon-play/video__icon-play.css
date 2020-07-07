@@ -1,0 +1,13 @@
+.video__icon-play {
+    width: 41px;
+    height: 41px;
+    /* position: relative; */
+    z-index: 2;
+    margin: 30px auto auto 30px;
+}
+@media screen and (max-width: 768px) {
+    .video__icon-play {
+        margin: 25px auto auto 25px;
+
+    }
+}

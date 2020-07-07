@@ -1,0 +1,19 @@
+.page__cover {
+    margin: 95px auto 0 auto;
+}
+
+@media screen and (max-width: 1280px) {
+    .page__cover {
+        margin: 75px auto 0 auto;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .page__cover {
+        margin: 105px auto 0 auto;
+    }
+}
+@media screen and (max-width: 375px) {
+    .page__cover {
+        margin: 46px auto 0 auto;
+    }
+}

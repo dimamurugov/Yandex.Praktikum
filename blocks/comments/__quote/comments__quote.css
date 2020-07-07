@@ -1,0 +1,17 @@
+.comments__quote {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+    max-width: 382px;
+    margin: 35px 0 0 0;
+}
+@media screen and (max-width: 768px) {
+    .comments__quote {
+        font-size: 16px;
+        line-height: 23px;
+        margin-top: 15px;
+        order: 1;
+    }
+}

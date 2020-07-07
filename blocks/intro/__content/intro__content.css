@@ -1,0 +1,15 @@
+.intro__content {
+    display: flex;
+    flex-direction: row;
+    margin-top: 34px;
+}   
+@media screen and (max-width: 375px) {
+    .intro__content {
+        margin-top: 28px;
+    }
+}
+@media screen and (max-width: 320px) {
+    .intro__content {
+        margin-top: 36px;
+    }
+}

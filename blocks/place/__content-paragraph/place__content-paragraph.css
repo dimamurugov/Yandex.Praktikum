@@ -1,0 +1,16 @@
+.place__content-paragraph {
+    display: flex;
+    flex-direction: column;
+    max-width: 484px;
+    margin-top: 50px;
+}
+@media screen and (max-width: 768px) {
+    .place__content-paragraph {
+        margin-top: 60px;
+    }
+}
+@media screen and (max-width: 505px) {
+    .place__content-paragraph {
+        margin: 24px 16px 0 16px;
+    }
+}

@@ -1,0 +1,30 @@
+.place {
+    font-family: 'Inter', Arial, sans-serif;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 81px;
+    background-color: #2A2C2F;
+}
+.place:last-child {
+    margin-bottom: 0px;
+}
+@media screen and (max-width: 1024px) {
+    .place {
+        padding: 0 24px;
+        box-sizing: border-box;
+        margin-bottom: 103px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .place {
+        margin-bottom: 60px;
+    }
+}
+@media screen and (max-width: 505px) {
+    .place {
+        flex-direction: column;
+        padding: 0;
+    }
+}
