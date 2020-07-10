@@ -5,22 +5,23 @@ class UserInfo {
         this.description = description;
         this.getInfoAboutMe = getInfoAboutMe;
 
-        this.nameProfile = this.name.textContent;
-        this.descriptionProfile = this.description.textContent;
+        this.nameProfile = this.name.textContent;//хранилище имени
+        this.descriptionProfile = this.description.textContent;//хранилище описания
         
         this.downloadUserInfo();
     }
     
+    //это старый метод?
     setUserInfo(name, description) { 
         this.nameProfile = name;
         this.descriptionProfile = description;
     }   
-    
+    //обновление данный только на клиенте!!
     updateUserInfo() {
         this.name.textContent = this.nameProfile;   
         this.description.textContent = this.descriptionProfile;
     }
-
+    //метод для получение данных с страницы для формы
     getUserInfo() {
         return {name: this.nameProfile, description: this.descriptionProfile}
     }

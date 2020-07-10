@@ -18,7 +18,7 @@
     const buttonEdit = document.querySelector('.user-info__edit-button');
 
     function _createCard(data) {
-        const newCard = new Card(data, openImage);
+        const newCard = new Card(data, openImage, _deleteCard, _putLikeCard,_deleteLikeCard, _getUserProfile, _getCard);
         return newCard.create(data)
     }
 
@@ -32,11 +32,10 @@
         userInfo.updateUserInfo();
     }
 
-
-
     function _getUserProfile() {
         return userInfo.getUserInfo();
     }
+    
     
 
     function _setSubmitButtonState() {
@@ -65,7 +64,21 @@
     function _putEditСhangesProfile(name, about) {
         api.putEditСhangesProfile(name, about);
     }
-
+    function _putServerCard(name, link) {
+        api.putServerCard(name,link);
+    }
+    function _deleteCard(idCard) {
+        api.deleteCard(idCard);
+    }
+    function _putLikeCard(idCard) {
+        api.putLikeCard(idCard);
+    }
+    function _deleteLikeCard(idCard) {
+        api.deleteLikeCard(idCard);
+    }
+    function _getCard(idCard) {
+        return api.getCard(idCard)
+    }
     const api = new Api({
         baseUrl: 'https://praktikum.tk/cohort11',
         headers: {
@@ -105,7 +118,7 @@
 
     profileFormInst.submitForm = (event) => {
         event.preventDefault();
-        
+        _putEditСhangesProfile(profileFormInst.form.elements.nameField.value, profileFormInst.form.elements.description.value);
         _updateEditProfile(profileFormInst.form.elements.nameField.value, profileFormInst.form.elements.description.value);
         profileFormInst.close();
     }
@@ -126,10 +139,11 @@
 
         const temp = _createCard({
             name: cardFormInst.form.elements.name.value,
-            link: cardFormInst.form.elements.link.value
+            link: cardFormInst.form.elements.link.value,
+            likes: []
         });
-
         containerList.addCard(temp);
+        _putServerCard(cardFormInst.form.elements.name.value, cardFormInst.form.elements.link.value);
         cardFormInst.close();
     }
 
