@@ -14,7 +14,7 @@
     </header>
     <div class="profile root__section">
       <div class="user-info">
-        <div class="user-info__photo"></div>
+        <img class="user-info__photo" src="images/avatar.jpg" alt="">
         <div class="user-info__data">
           <h1 class="user-info__name"></h1>
           <p class="user-info__job"></p>
@@ -67,6 +67,23 @@
       <div class="popup__container-for-image">
         <img class="popup__close popur__close_theme_image" src="./images/close.svg" alt="">
         <img class="popup__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="">
+      </div>
+    </div>
+
+    <div class="popup popup_theme_avatar">
+      <div class="popup__content">
+        <img src="./images/close.svg" alt="" class="popup__close popur__close_theme_avatar-popup">
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form class="popup__form popup__form_avatar" name="avatar">
+         
+          <div class="popup__input-container">
+            <input id="link" type="url" name="linkField" required minlength="2" maxlength="100" class="popup__input popup__input_type_avatar" placeholder="Ссылка">
+            <span id="error-link" class="popup__error-massage"></span>
+          </div>
+        
+          <button type="submit" id="submit" name="button" class="button popup__button popup__button_theme_edit-popup popup__button_edit" >Сохранить</button>   
+          
+        </form>
       </div>
     </div>
 

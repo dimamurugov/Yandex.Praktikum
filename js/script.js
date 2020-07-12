@@ -1,6 +1,6 @@
 (function() {
+    
     //КОНСТАНТЫ
-
     const placesList = document.querySelector('.places-list');
 
     const popupImage = document.querySelector('.popup_theme_image');
@@ -10,17 +10,24 @@
 
     const FormAdd = document.querySelector('.popup__form_add');
     const FormEdit = document.querySelector('.popup__form_edit');
+    const FormAvatar = document.querySelector('.popup__form_avatar');
 
     const popupAdd = document.querySelector('.popup_theme_add-card');
     const popupEdit = document.querySelector('.popup_theme_edit-popup');
-
+    const popupAvatar = document.querySelector('.popup_theme_avatar');
+    
     const buttonAdd = document.querySelector('.user-info__button');
     const buttonEdit = document.querySelector('.user-info__edit-button');
+    const buttonAvatar = document.querySelector('.user-info__photo');
+
+
 
     function _createCard(data) {
-        const newCard = new Card(data, openImage, _deleteCard, _putLikeCard,_deleteLikeCard, _getUserProfile, _getCard);
+        const newCard = new Card(data, openImage, _deleteCard, _putLikeCard,_deleteLikeCard, _getUserProfile, _getMyID);
         return newCard.create(data)
     }
+
+
 
     //КолБэк функции
     function openImage(link) {
@@ -36,8 +43,6 @@
         return userInfo.getUserInfo();
     }
     
-    
-
     function _setSubmitButtonState() {
         validatorEditForm.setSubmitButtonState(this.form.button, true);
     }
@@ -45,14 +50,19 @@
     function _setSubmitButtonStateAddForm() {
         validatorAddForm.setSubmitButtonState(this.form.button, false);
     }
-
-    //колбэк Для очистки в ErrorMassege в форме редактирования профиля
+    function _setSubmitButtonStateAvatar() {
+        validatorAvatarForm.setSubmitButtonState(this.form.button, false);
+    }
     function _clearErrorMassegeAddCard() {
         validatorAddForm._clearErrorMassege();
     }
-    //колбэк Для очистки в ErrorMassege в форме добавления карточки
+
     function _clearErrorMassegeEditProfile() {
         validatorEditForm._clearErrorMassege();
+    }
+    
+    function _clearErrorMassegeAvatar() { 
+        validatorAvatarForm._clearErrorMassege();
     }
 
     function getInfoAboutMe() {
@@ -62,22 +72,26 @@
         return api.getMassCards();
     }
     function _putEditСhangesProfile(name, about) {
-        api.putEditСhangesProfile(name, about);
+        return api.putEditСhangesProfile(name, about);
     }
     function _putServerCard(name, link) {
-        api.putServerCard(name,link);
+        return api.putServerCard(name,link);
     }
     function _deleteCard(idCard) {
-        api.deleteCard(idCard);
+        return api.deleteCard(idCard);
     }
     function _putLikeCard(idCard) {
-        api.putLikeCard(idCard);
+        return api.putLikeCard(idCard);
     }
     function _deleteLikeCard(idCard) {
-        api.deleteLikeCard(idCard);
+        return api.deleteLikeCard(idCard);
     }
-    function _getCard(idCard) {
-        return api.getCard(idCard)
+   
+    function _uploadAvatar(link) {
+        return api.uploadAvatar(link)
+    }
+    function _getMyID() {
+        return userInfo._getMyId()
     }
     const api = new Api({
         baseUrl: 'https://praktikum.tk/cohort11',
@@ -87,15 +101,13 @@
         }
     });
 
-    
     const containerList = new CardList(placesList, _createCard, getMassCards);
     containerList.render();
 
-    const userInfo = new UserInfo(nameProfile, descriptionProfile, getInfoAboutMe);
+    const userInfo = new UserInfo(nameProfile, descriptionProfile,buttonAvatar, getInfoAboutMe);
 
     const imagePopup = new ImagePopup(popupImage);
     imagePopup.setListeners();
-
 
     
     const validatorEditForm = new FormValidator(FormEdit);
@@ -103,6 +115,28 @@
 
     const validatorAddForm = new FormValidator(FormAdd);
     const cardFormInst = new FormPopup(popupAdd, FormAdd, buttonAdd, _setSubmitButtonStateAddForm, _clearErrorMassegeAddCard);
+    
+    const validatorAvatarForm = new FormValidator(FormAvatar);//создай колбэки и отправь в класс
+    const avatarFormInst = new FormPopup(popupAvatar, FormAvatar, buttonAvatar, _setSubmitButtonStateAvatar, _clearErrorMassegeAvatar);
+
+    avatarFormInst.openForm = () => {
+        avatarFormInst.open();
+        avatarFormInst.doOnOpenForm();
+        avatarFormInst.setListeners();
+    }
+
+    avatarFormInst.submitForm = () => {
+        event.preventDefault();
+        avatarFormInst.form.elements.button.textContent = 'Загрузка...';
+        _uploadAvatar(avatarFormInst.form.elements.linkField.value)
+        .then((res) => { return res.json() })
+        .then((data) => { 
+            buttonAvatar.src = data.avatar;
+            avatarFormInst.close();
+            profileFormInst.form.elements.button.textContent = 'Сохранить';
+        })
+        
+    }
 
     profileFormInst.openForm = () => {
 
@@ -118,9 +152,17 @@
 
     profileFormInst.submitForm = (event) => {
         event.preventDefault();
-        _putEditСhangesProfile(profileFormInst.form.elements.nameField.value, profileFormInst.form.elements.description.value);
-        _updateEditProfile(profileFormInst.form.elements.nameField.value, profileFormInst.form.elements.description.value);
-        profileFormInst.close();
+        profileFormInst.form.elements.button.textContent = 'Загрузка...';
+        _putEditСhangesProfile(profileFormInst.form.elements.nameField.value, profileFormInst.form.elements.description.value)
+        .then(res => {
+            return res.json();
+            
+        })
+        .then(() => {
+            _updateEditProfile(profileFormInst.form.elements.nameField.value, profileFormInst.form.elements.description.value);
+            profileFormInst.close();
+            profileFormInst.form.elements.button.textContent = 'Сохранить';
+        }); 
     }
 
 
@@ -136,19 +178,27 @@
     cardFormInst.submitForm = () => {
 
         event.preventDefault();
-
-        const temp = _createCard({
-            name: cardFormInst.form.elements.name.value,
-            link: cardFormInst.form.elements.link.value,
-            likes: []
+        cardFormInst.form.elements.button.textContent = 'Загрузка...';
+        
+        _putServerCard(cardFormInst.form.elements.name.value, cardFormInst.form.elements.link.value)
+        .then((res) => {
+            if (res.ok) {
+                return res.json()    
+            }
+        })
+        .then((data) => {
+            
+            const temp = _createCard(data);
+            containerList.addCard(temp);
+            
+            cardFormInst.close();
+            cardFormInst.form.elements.button.textContent = '+';
         });
-        containerList.addCard(temp);
-        _putServerCard(cardFormInst.form.elements.name.value, cardFormInst.form.elements.link.value);
-        cardFormInst.close();
     }
 
     profileFormInst.setListenersForm();
     cardFormInst.setListenersForm();
+    avatarFormInst.setListenersForm();
     
 })();
 

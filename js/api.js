@@ -19,12 +19,6 @@ class Api {
             }
         })
     }
-    getCard(idCard) {
-        return fetch(`https://praktikum.tk/cohort11/cards/${idCard}`, {
-            headers: {
-                authorization: this.options.headers.authorization
-            }})
-    }
     putEditСhangesProfile(name, about) {
         return fetch('https://praktikum.tk/cohort11/users/me', {
             method: 'PATCH',
@@ -36,10 +30,7 @@ class Api {
               name: name,
               about: about
             })
-        }).then(res => {
-            return res.json()
-        }
-        ); 
+        })
     }
     putServerCard(name, link) {
         return fetch('https://praktikum.tk/cohort11/cards', {
@@ -76,6 +67,19 @@ class Api {
             headers: {
                 authorization: this.options.headers.authorization
             }
+        })
+    }
+    
+    uploadAvatar(link) {
+        return fetch(`https://praktikum.tk/cohort11/users/me/avatar`, {
+            method: 'PATCH',
+            headers: {
+                authorization: this.options.headers.authorization,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: link
+            })
         })
     }
 }

@@ -11,10 +11,13 @@
 @import url(./__error-massage/popup__error-massage.css);
 
 
+
+
 @import url(./_theme/popup_theme_add-card.css);
 @import url(./_theme/popup_theme_edit-profile.css);
 @import url(./_theme/popup_theme_image.css);
 @import url(./__button/_theme/popup__button_theme_edit-popup.css);
+@import url(./_theme/popup_theme_avatar.css);
 
 
 .popup {
